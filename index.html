@@ -218,6 +218,10 @@ pre.tin{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--paper-
 .hang figcaption{font-size:11.5px;line-height:1.3;margin-top:5px;min-height:2.6em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .hang>.opt .chon-btn{margin-top:4px;width:100%;padding:5px 6px;font-size:12px}
 @media (min-width:700px){.hang>figure,.hang>.opt{flex-basis:150px}}
+/* ngang đều: đúng 3 ô vừa khít bề ngang */
+.hang{align-items:flex-start}
+.hang>figure,.hang>.opt{flex:0 0 calc((100% - 16px)/3)}
+@media (min-width:700px){.hang>figure,.hang>.opt{flex-basis:calc((100% - 32px)/5)}}
 </style></head><body><div class="wrap">
 
 <div class="top">
