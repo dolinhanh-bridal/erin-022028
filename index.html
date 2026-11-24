@@ -206,6 +206,9 @@ pre.tin{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--paper-
 .buoc{flex-wrap:nowrap;white-space:nowrap;font-size:13px;gap:5px;overflow:hidden}
 .buoc .so{width:19px;height:19px;font-size:11px}
 .buoc .mui{margin:0 1px}
+.lb{background:rgba(0,0,0,.94)}
+.lb-x{position:fixed;top:max(12px,env(safe-area-inset-top));right:12px;z-index:30;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#111;font-size:30px;line-height:1;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.lb-nhieu{padding-top:70px}
 </style></head><body><div class="wrap">
 
 <div class="top">
@@ -482,6 +485,13 @@ pre.tin{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--paper-
 
 </div>
 <script>var LANG_MAC_DINH="en";
+function moLb(d){
+  var x=document.createElement("button"); x.type="button"; x.className="lb-x"; x.setAttribute("aria-label","Close"); x.textContent="×";
+  function dong(){ d.remove(); x.remove(); document.removeEventListener("keydown",esc); }
+  function esc(e){ if(e.key==="Escape") dong(); }
+  d.addEventListener("click",dong); x.addEventListener("click",dong); document.addEventListener("keydown",esc);
+  document.body.appendChild(d); document.body.appendChild(x);
+}
 (function(){
   var KEY="erin_lang", h=document.documentElement, l=LANG_MAC_DINH;
   try{ l=localStorage.getItem(KEY)||l; }catch(e){}
@@ -495,14 +505,14 @@ pre.tin{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--paper-
   document.querySelectorAll(".photos img, .hang > figure:not(.opt) img").forEach(function(im){
     im.addEventListener("click",function(){
       var d=document.createElement("div"); d.className="lb"; var i=document.createElement("img"); i.src=im.src; i.alt=im.alt;
-      d.appendChild(i); d.addEventListener("click",function(){ d.remove(); }); document.body.appendChild(d);
+      d.appendChild(i); moLb(d);
     });
   });
   document.querySelectorAll(".opt img").forEach(function(im){
     im.addEventListener("click",function(){
       var d=document.createElement("div"); d.className="lb lb-nhieu";
       im.closest(".opt").querySelectorAll("img").forEach(function(x){ var i=document.createElement("img"); i.src=x.src; i.alt=x.alt; d.appendChild(i); });
-      d.addEventListener("click",function(){ d.remove(); }); document.body.appendChild(d);
+      moLb(d);
     });
   });
 })();
