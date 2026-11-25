@@ -222,6 +222,9 @@ pre.tin{white-space:pre-wrap;font:inherit;font-size:14px;background:var(--paper-
 .hang{align-items:flex-start}
 .hang>figure,.hang>.opt{flex:0 0 calc((100% - 16px)/3)}
 @media (min-width:700px){.hang>figure,.hang>.opt{flex-basis:calc((100% - 32px)/5)}}
+/* dấu phóng to trên mỗi ô */
+.hang>figure{position:relative}
+.hang>figure::after{content:"";position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:rgba(255,255,255,.9) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23222' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6'/%3E%3Cpath d='M15 15l5 5M10.5 8v5M8 10.5h5'/%3E%3C/svg%3E") center/15px no-repeat;box-shadow:0 1px 4px rgba(0,0,0,.25);pointer-events:none}
 </style></head><body><div class="wrap">
 
 <div class="top">
@@ -513,13 +516,13 @@ function moLb(d){
   set(l);
   document.querySelectorAll(".lang button").forEach(function(b){ b.addEventListener("click",function(){ set(b.dataset.l); }); });
   document.querySelectorAll(".photos img, .hang > figure:not(.opt) img").forEach(function(im){
-    im.addEventListener("click",function(){
+    (im.closest(".hang > figure")||im).addEventListener("click",function(){
       var d=document.createElement("div"); d.className="lb"; var i=document.createElement("img"); i.src=im.src; i.alt=im.alt;
       d.appendChild(i); moLb(d);
     });
   });
-  document.querySelectorAll(".opt img").forEach(function(im){
-    im.addEventListener("click",function(){
+  document.querySelectorAll(".opt").forEach(function(op){ var im=op.querySelector("img");
+    op.addEventListener("click",function(){
       var d=document.createElement("div"); d.className="lb lb-nhieu";
       im.closest(".opt").querySelectorAll("img").forEach(function(x){ var i=document.createElement("img"); i.src=x.src; i.alt=x.alt; d.appendChild(i); });
       moLb(d);
